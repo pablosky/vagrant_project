@@ -1,0 +1,51 @@
+
+
+
+.mdl-cell.mdl-cell--12-col
+	%h1 Companies Index
+
+	- flash.each do |key, value| 
+		= content_tag :div, value, class: "flash #{key}"
+
+- if @companies
+	.mdl-cell.mdl-cell--12-col			
+		%table.mdl-data-table.mdl-js-data-table.mdl-shadow--2dp
+			%thead
+				%tr
+					%th.mdl-data-table__cell--non-numeric Company
+					%th Contact
+					%th Phone
+					%th Email
+					%th Country
+					%th Contracts
+					%th Options
+			%tbody
+				- @companies.each do |company|
+					%tr
+						%td.mdl-data-table__cell--non-numeric 
+							= company.company_name
+						%td
+							= company.company_contact_name.to_s
+						%td 
+							= company.company_contact_phone.to_s
+						%td
+							= company.company_email.to_s
+						%td
+							= company.company_country.to_s
+						%td.mdl-data-table__cell--non-numeric 
+							%a.mdl-navigation__link{:href => "#{contracts_path(company_id: company.id)}"}
+								%i.mdl-color-text--blue-grey-400.material-icons{:role => "presentation"} 
+									list
+						%td.mdl-data-table__cell--non-numeric
+							%a.mdl-navigation__link{:href => "#{edit_company_path(company)}"}
+								%i.mdl-color-text--blue-grey-400.material-icons{:role => "presentation"} 
+									edit
+							%a.mdl-navigation__link{:href => "#{delete_company_path(id: company.id)}" }
+								%i.mdl-color-text--blue-grey-400.material-icons{:role => "presentation"} delete
+							
+								
+		%br
+
+%a.mdl-button.mdl-js-button.mdl-button--fab.mdl-js-ripple-effect.mdl-button--primary#new-contract{:href=>"#{new_company_path}"} 
+	%i.material-icons add
+

@@ -1,0 +1,23 @@
+
+.mdl-cell.mdl-cell--12-col
+	%br
+	%br
+	%br
+	
+
+	= form_for(@contract) do |f|
+		.mdl-textfield.mdl-js-textfield.textfield-demo
+			= f.text_field :contact ,class: "mdl-textfield__input"
+			= f.label :contact_name , class: "mdl-textfield__label" ,for: "contact"
+		%br
+		= f.select :company_id, options_for_select(@companies.collect{ |u| [u.company_name, u.id ,{:class=>'mdl-menu__item'}] }) , class: "mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect"
+		%br
+
+		.mdl-textfield.mdl-js-textfield.textfield-demo
+			
+			= f.text_field :amount ,class: "mdl-textfield__input" ,:pattern=>"-?[0-9]*(\.[0-9]+)?"   
+			= f.label :amount , class: "mdl-textfield__label" ,for: "amount" 
+			%span.mdl-textfield__error 
+				Input is not a number!
+		%br
+		= f.submit  class: "mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect"
